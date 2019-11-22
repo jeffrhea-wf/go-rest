@@ -2,7 +2,6 @@ package middleware
 
 import (
 	"log"
-  "os"
 	"net/http"
 	"net/url"
 	"strings"
