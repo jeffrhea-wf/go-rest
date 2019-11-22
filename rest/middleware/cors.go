@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"net/http"
 	"net/url"
 	"strings"
@@ -12,11 +13,13 @@ import (
 // Origin must match the supplied whitelist (which supports wildcards). Returns
 // a MiddlewareError if the request should be terminated.
 func NewCORSMiddleware(originWhitelist []string) rest.Middleware {
+  fmt.Printf("Jeff test 1\n")
 	return func(w http.ResponseWriter, r *http.Request) *rest.MiddlewareError {
 		origin := r.Header.Get("Origin")
 		if origin == "" && r.Method != "OPTIONS" {
 			return nil
 		}
+		fmt.Printf("Jeff test 2\n")
 
 		originMatch := false
 		if checkOrigin(origin, originWhitelist) {
@@ -26,10 +29,12 @@ func NewCORSMiddleware(originWhitelist []string) rest.Middleware {
 			w.Header().Set("Access-Control-Allow-Credentials", "true")
 			originMatch = true
 		}
+		fmt.Printf("Jeff test 3\n")
 
 		if r.Method == "OPTIONS" {
 			return &rest.MiddlewareError{Code: http.StatusOK}
 		}
+		fmt.Printf("Jeff test 4\n")
 
 		if !originMatch {
 			return &rest.MiddlewareError{
@@ -37,6 +42,7 @@ func NewCORSMiddleware(originWhitelist []string) rest.Middleware {
 				Response: []byte("Origin does not match whitelist"),
 			}
 		}
+		fmt.Printf("Jeff test 5\n")
 
 		return nil
 	}
