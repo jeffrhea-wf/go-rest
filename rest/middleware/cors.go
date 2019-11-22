@@ -14,7 +14,7 @@ import (
 // Origin must match the supplied whitelist (which supports wildcards). Returns
 // a MiddlewareError if the request should be terminated.
 func NewCORSMiddleware(originWhitelist []string) rest.Middleware {
-	logger := log.New(os.Stdout, defaultLogPrefix, log.LstdFlags)
+	logger := log.New(os.Stdout, "rest ", log.LstdFlags)
   log.Printf("Jeff Test 1")
 	return func(w http.ResponseWriter, r *http.Request) *rest.MiddlewareError {
 		origin := r.Header.Get("Origin")
